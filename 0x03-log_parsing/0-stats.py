@@ -1,54 +1,52 @@
 #!/usr/bin/python3
+"""
+This module contains a method that reads stdin line by line and
+computes metrics
+"""
+import dis
 import sys
-import signal
 
 
-# Initialize variables to store statistics
-file_size = 0
-status_code_counts = {}
-line_count = 0
+def display_metrics(total_size, status_code):
+    """
+    Function that print the metrics
+    """
+
+    print('File size: {}'.format(total_size))
+    for key, value in sorted(status_code.items()):
+        if value != 0:
+            print('{}: {}'.format(key, value))
 
 
-# Function to print statistics
-def print_statistics():
-    global file_size
-    global status_code_counts
-    print(f"File size: {file_size}")
-    for status_code in sorted(status_code_counts.keys()):
-        print(f"{status_code}: {status_code_counts[status_code]}")
+if __name__ == '__main__':
+    total_size = 0
+    status_code = {
+        '200': 0,
+        '301': 0,
+        '400': 0,
+        '401': 0,
+        '403': 0,
+        '404': 0,
+        '405': 0,
+        '500': 0
+    }
 
+    try:
+        i = 0
+        for line in sys.stdin:
+            args = line.split()
+            if len(args) > 6:
+                status = args[-2]
+                file_size = args[-1]
+                total_size += int(file_size)
+                if status in status_code:
+                    i += 1
+                    status_code[status] += 1
+                    if i % 10 == 0:
+                        display_metrics(total_size, status_code)
 
-# Handle SIGINT (Ctrl+C) to print statistics and continue
-def signal_handler(sig, frame):
-    print_statistics()
-    sys.exit(0)
-
-
-signal.signal(signal.SIGINT, signal_handler)
-
-
-try:
-    for line in sys.stdin:
-        # Split the line into parts
-        parts = line.split()
-        if len(parts) >= 7:
-            # Extract the status code and file size
-            status_code = parts[-2]
-            file_size += int(parts[-1])
-
-            # Update the status code counts
-            if status_code.isdigit():
-                status_code = int(status_code)
-                if status_code in (200, 301, 400, 401, 403, 404, 405, 500):
-                    status_code_counts[status_code] = status_code_counts.get(
-                            status_code, 0) + 1
-
-            line_count += 1
-
-            # Print statistics every 10 lines
-            if line_count % 10 == 0:
-                print_statistics()
-
-except KeyboardInterrupt:
-    # Handle Ctrl+C to print final statistics
-    print_statistics()
+    except KeyboardInterrupt:
+        display_metrics(total_size, status_code)
+        raise
+    else:
+        display_metrics(total_size, status_code)
