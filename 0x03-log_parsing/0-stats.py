@@ -3,7 +3,7 @@
 This module contains a method that reads stdin line by line and
 computes metrics
 """
-import dis
+
 import sys
 
 
