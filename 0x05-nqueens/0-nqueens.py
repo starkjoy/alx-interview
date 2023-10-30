@@ -6,9 +6,10 @@ A program that solves the N queens problem.
 
 import sys
 
+
 def is_safe(board, row, col, N):
     """
-    Check if it's safe to place a queen at a specific position on the chessboard
+    Check if it's safe to place a queen somewhere on the chessboard
 
     Args:
         board (list): The chessboard represented as a 2D list.
@@ -20,27 +21,27 @@ def is_safe(board, row, col, N):
         bool: True if its safe to place the queen or False otherwise.
     """
 
-    for i  in range(col):
+    for i in range(col):
         if board[row][i] == 1:
             return False
-    
+
     for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-    
+
     for i, j in zip(range(row, N, 1), range(col, -1, -1)):
         if board[i][j] == 1:
             return False
-    
+
     return True
 
 
 def solve_nqueens(N):
     """
-    Find and print all solutions to the N-Queens problem for a given board size N.
+    Find and print all solutions to the N-Queens problem.
 
     Args:
-        N (int): The size of the chessboard and the number of queens to be placed.
+        N (int): The size of the chessboard.
     """
 
     def print_solution(board):
@@ -92,4 +93,3 @@ if __name__ == "__main__":
     except ValueError:
         print("N must be a number")
         sys.exit(1)
-        
