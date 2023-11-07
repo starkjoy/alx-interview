@@ -6,7 +6,7 @@ const request = require('request');
 const apiUrl = 'https://swapi-api.alx-tools.com/api';
 
 // Function to fetch characters from a specific movie
-function getCharactersInMovie (movieId) {
+function getCharactersInMovie(movieId) {
   const filmUrl = `${apiUrl}/films/${movieId}/`;
 
   request(filmUrl, (error, response, body) => {
@@ -17,7 +17,6 @@ function getCharactersInMovie (movieId) {
       if (characters.length === 0) {
         console.log('No characters found for this movie.');
       } else {
-        console.log(`Characters in the movie "${filmData.title}":`);
         const characterNames = [];
 
         // Fetch character names in the order they appear in the movie
