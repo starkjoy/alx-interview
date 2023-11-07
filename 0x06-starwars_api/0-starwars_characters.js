@@ -6,9 +6,9 @@ const request = require('request');
 const apiUrl = 'https://swapi-api.alx-tools.com/api';
 
 // Function to fetch characters from a specific movie
-function getCharactersInMovie(movieId) {
+function getCharactersInMovie (movieId) {
   const filmUrl = `${apiUrl}/films/${movieId}/`;
-  
+
   request(filmUrl, (error, response, body) => {
     if (!error && response.statusCode === 200) {
       const filmData = JSON.parse(body);
