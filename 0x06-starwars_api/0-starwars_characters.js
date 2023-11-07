@@ -1,12 +1,14 @@
 #!/usr/bin/node
 
+process.setMaxListeners(15);
+
 const request = require('request');
 
 // Define the Star Wars API base URL
 const apiUrl = 'https://swapi-api.alx-tools.com/api';
 
 // Function to fetch characters from a specific movie
-function getCharactersInMovie(movieId) {
+function getCharactersInMovie (movieId) {
   const filmUrl = `${apiUrl}/films/${movieId}/`;
 
   request(filmUrl, (error, response, body) => {
