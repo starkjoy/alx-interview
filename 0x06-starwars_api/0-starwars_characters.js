@@ -32,7 +32,7 @@ function getCharactersInMovie (movieId) {
             // Check if all character names have been fetched
             if (index === characters.length - 1) {
               // Sort the character names in alphabetical order
-              characterNames.sort();
+              // characterNames.sort();
               console.log(characterNames.join('\n'));
             }
           });
