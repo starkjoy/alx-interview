@@ -3,7 +3,6 @@
 Function to determine the fewest number of coins needed to match an amount
 """
 
-import heapq
 
 def makeChange(coins, total):
     """
@@ -21,17 +20,11 @@ def makeChange(coins, total):
     if total <= 0:
         return 0
 
-    dp = []
-    heapq.heapify(dp)
-    heapq.heappush(dp, (0, 0))
+    dp = [float('inf')] * (total + 1)
+    dp[0] = 0
 
-    while dp:
-        count, amount = heapq.heappop(dp)
-        if amount == total:
-            return count
+    for coin in coins:
+        for i in range(coin, total + 1):
+            dp[i] = min(dp[i], dp[i - coin] + 1)
 
-        for coin in coins:
-            if amount + coin <= total:
-                heapq.heappush(dp, (count + 1, amount + coin))
-
-    return -1
+    return dp[total] if dp[total] != float('inf') else -1
