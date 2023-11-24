@@ -17,23 +17,24 @@ def makeChange(coins, total):
              If total is 0 or less, return 0.
              If total cannot be met by any number of coins, return -1.
     """
+import heapq
+
     if total <= 0:
         return 0
 
-    smallest_amounts = {coin: float('inf') for coin in coins}
-    for coin in coins:
-        smallest_amounts[coin] = coin
+    dp = []
+    heapq.heapify(dp)
+    heapq.heappush(dp, (0, 0))
 
-    dp = [float('inf')] * (total + 1)
-    dp[0] = 0
+    while dp:
+        count, amount = heapq.heappop(dp)
+        if amount == total:
+            return count
 
-    for amount in range(1, total + 1):
-        if amount in smallest_amounts:
-            dp[amount] = 1
-        else:
-            for coin in coins:
-                if amount >= coin:
-                    dp[amount] = min(dp[amount], dp[amount - coin] + 1)
+        for coin in coins:
+            if amount + coin <= total:
+                heapq.heappush(dp, (count + 1, amount + coin))
 
-    return dp[total] if dp[total] != float('inf') else -1
+    return -1
+
 
