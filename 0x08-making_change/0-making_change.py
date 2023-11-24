@@ -17,19 +17,20 @@ def makeChange(coins, total):
              If total is 0 or less, return 0.
              If total cannot be met by any number of coins, return -1.
     """
-    if total <= 0:
-        return 0
 
-    if len(coins) <= 0:
+    if len(coins) <= 0 or total <= 0:
         return 0
     
-    coins.sort(reverse=True)
+    coins.sort()
     
     count = 0
     
-    for coin in coins:
-        count += total // coin
-        total %= coin
-        
+    index = len(coins) - 1
+    
+    while total > 0 and index >= 0:
+        if coins[index] <= total:
+            count += total // coins[index]
+            total %= coins[index]
+        index -= 1
+    
     return count
-
