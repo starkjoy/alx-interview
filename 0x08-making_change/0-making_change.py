@@ -3,6 +3,7 @@
 Function to determine the fewest number of coins needed to match an amount
 """
 
+import heapq
 
 def makeChange(coins, total):
     """
@@ -17,8 +18,6 @@ def makeChange(coins, total):
              If total is 0 or less, return 0.
              If total cannot be met by any number of coins, return -1.
     """
-import heapq
-
     if total <= 0:
         return 0
 
@@ -36,5 +35,3 @@ import heapq
                 heapq.heappush(dp, (count + 1, amount + coin))
 
     return -1
-
-
