@@ -22,7 +22,7 @@ def island_perimeter(grid):
             if grid[i][j] == 1:
                 perimeter += 4  # Start with assuming a full perimeter
 
-                # Check adjacent cells and reduce perimeter for each adjacent land
+                # Check adjacent cells and reduce perimeter accordingly
                 if i > 0 and grid[i - 1][j] == 1:
                     perimeter -= 2
                 if j > 0 and grid[i][j - 1] == 1:
