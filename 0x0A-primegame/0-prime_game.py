@@ -1,9 +1,10 @@
 #!/usr/bin/python3
 """ Function to determine if all boxes can be opened """
 
+
 def sieve_of_eratosthenes(limit):
     """
-    Generate a list of prime numbers up to a given limit using the Sieve of Eratosthenes algorithm.
+    Generate a list of prime numbers using the Sieve of Eratosthenes algorithm.
 
     Parameters:
     - limit (int): The upper limit for prime numbers.
@@ -23,17 +24,19 @@ def sieve_of_eratosthenes(limit):
 
     return primes
 
+
 def isWinner(x, nums):
     """
-    Determine the winner of each round in a game where Maria and Ben play optimally.
+    Determines the winner of a game where Maria and Ben play optimally.
 
     Parameters:
     - x (int): The number of rounds.
     - nums (List[int]): List of values representing 'n' for each round.
 
     Returns:
-    - str or None: Name of the player with the most wins ('Maria' or 'Ben') or None if the winner cannot be determined.
+    - str or None: Player Name or None
     """
+
     def canWin(n):
         """
         Simulate the game for a given 'n' and determine if Maria can win.
